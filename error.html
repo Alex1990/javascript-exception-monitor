@@ -10,13 +10,13 @@
     <a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror">error event</a>
   </p>
   <script>
-    window.onerror = function (message, source, lineno, colno, error) {
-      console.log('error message: ', message)
-      console.log('error source: ', source)
-      console.log('error lineno: ', lineno)
-      console.log('error colno: ', colno)
-      console.log('error stack:\n', error.stack)
-    }
+    window.addEventListener('error', function (event) {
+      console.log('error message: ', event.message)
+      console.log('error source: ', event.filename)
+      console.log('error lineno: ', event.lineno)
+      console.log('error colno: ', event.colno)
+      console.log('error stack:\n', event.error.stack)
+    }, true)
   </script>
   <script>
     function foo() {
