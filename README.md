@@ -1,2 +1,2 @@
 # javascript-exception-monitor
-The methods to monitor the javascript exceptions
+The examples of monitoring the javascript exception
