@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM events</title>
+</head>
+<body>
+  <div class="page container">
+    <button id="btn">Trigger Click Event</button>
+  </div>
+  <script>
+    var toString = Object.prototype.toString
+    var btn = document.getElementById('btn')
+    btn.addEventListener('click', function (event) {
+      event.stopPropagation()
+      console.log('button clicked')
+    })
+    window.addEventListener('click', function (event) {
+      console.log('event type: ', event.type)
+      var path = []
+      event.path.forEach(function (elem) {
+        var tag = ''
+        if (elem.nodeType) {
+          if (elem.nodeType === 1) {
+            tag += elem.tagName.toLowerCase()
+            if (elem.id) {
+              tag += '#' + elem.id
+            } else if (elem.className) {
+              tag += '.' + elem.className.replace(/\s+/g, '.')
+            }
+          }
+          if (elem.nodeType === 9) {
+            tag += 'document'
+          }
+        } else if (toString.call(elem) === '[object Window]') {
+          tag += 'window'
+        }
+        path.push(tag)
+      })
+      console.log('event path: ', path)
+      console.log('event', event)
+    }, true)
+  </script>
+</body>
+</html>

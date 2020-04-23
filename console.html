@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>console</title>
+</head>
+<body>
+  <script>
+    var LOG_MAX = 100
+    var logs = []
+    var originalLog = console.log
+    window.console.log = function () {
+      var args = Array.prototype.slice.call(arguments)
+      var log = []
+      args.forEach(function (arg) {
+        if (typeof arg === 'undefined') {
+          log.push('undefined')
+        } else if (typeof arg === 'function') {
+          log.push(arg.toString())
+        } else {
+          // Set, Map, ... need to be handled exceptionally
+          log.push(JSON.stringify(arg))
+        }
+      })
+      if (logs.length > LOG_MAX) {
+        logs.shift()
+      }
+      logs.push(log)
+      originalLog(JSON.stringify(logs))
+    }
+    console.log(1)
+    console.log('hello world')
+    console.log(function foo() {})
+    console.log(null, undefined)
+  </script>
+</body>
+</html>

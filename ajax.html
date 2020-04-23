@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax</title>
+</head>
+<body>
+  <script>
+    var originalOpen = XMLHttpRequest.prototype.open
+    var originalSend = XMLHttpRequest.prototype.send
+    XMLHttpRequest.prototype.open = function(method, url, async, username, password) {
+      console.log('request method: ', method)
+      console.log('request url: ', url)
+      originalOpen.call(this, method, url, async, username, password)
+    }
+    XMLHttpRequest.prototype.send = function(data) {
+      console.log(this)
+      var _this = this
+      var listener = function (event) {
+        if (_this.readyState === 4) {
+          console.log('response status', _this.status)
+          console.log('response statusText', _this.statusText)
+        }
+        _this.removeEventListener('readystatechange', listener)
+      }
+      this.addEventListener('readystatechange', listener)
+      originalSend.call(this, data)
+    }
+    var xhr = new XMLHttpRequest()
+    xhr.open('get', '/')
+    xhr.send(null)
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>error event</title>
+</head>
+<body>
+  <p>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror">error event</a>
+  </p>
+  <script>
+    window.onerror = function (message, source, lineno, colno, error) {
+      console.log('error message: ', message)
+      console.log('error source: ', source)
+      console.log('error lineno: ', lineno)
+      console.log('error colno: ', colno)
+      console.log('error stack:\n', error.stack)
+    }
+  </script>
+  <script>
+    function foo() {
+      var n = 1
+      n.split('')
+    }
+    foo()
+  </script>
+</body>
+</html>
