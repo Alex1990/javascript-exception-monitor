@@ -5,7 +5,7 @@ The examples of monitoring the javascript exception
 
 * [error event](./error.html)
 * [link tag](./link.html)
-* [unhandledrejetion event](./unhandledrejetion.html)
+* [unhandledrejection event](./unhandledrejection.html)
 * [uncaughtException event](./uncaughtException.html)
 * [DOM events](./dom-events.html)
 
